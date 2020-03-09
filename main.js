@@ -21,7 +21,7 @@ server.post('/createUser', userController.createUser)
 
 
 //Listen
-server.listen(3000, () => {
+server.listen(process.env.port, () => {
     console.log("Servidor escuchando en el puerto 3000")
 })
 

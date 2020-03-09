@@ -11,13 +11,15 @@ const secrets = JSON.parse(secretContents);
 var connection = mysql.createPool({
     host: secrets["mysql_host"],
     user: secrets["mysql_user"],
-    password: secrets["mysql_password"]
+    password: secrets["mysql_password"],
+    connectTimeout: 50000,
+    acquireTimeout: 50000
 });
 
 //Extraer datos de 1 usuario
 exports.getUserByID = (id, callback) => {
     connection.query(
-        `SELECT * FROM neocoffee.users WHERE ID = ${id};`,
+        `SELECT * FROM ejemplodeploy.users WHERE ID = ${id};`,
         callback
     )
 }
@@ -33,7 +35,7 @@ exports.createNewUser = (
     callback
     ) => {
         connection.query(`
-        INSERT INTO neocoffee.users 
+        INSERT INTO ejemplodeploy.users 
         (username, password, firstName, secondName, fechaInscripcion, email)
         VALUES 
         ("${username}", "${password}", "${firstName}", "${secondName}", ${fechaInscripcion}, "${email}");
